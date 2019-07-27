@@ -28,19 +28,25 @@ class Vendo {
 	}
 
 	vend(slot, price) {
-		this.credit = this.credit - price;
-		if (this.onCredit !== null)
-			this.onCredit(this.credit);
+		if (this.credit >= price) {
+			this.credit = this.credit - price;
+			if (this.onCredit !== null)
+				this.onCredit(this.credit);
 
-		for (var r = this.credit; r < this.credit + price; r++) {
-			var message = new Paho.Message("e");
+			for (var r = this.credit; r < this.credit + price; r++) {
+				var message = new Paho.Message("e");
+				message.destinationName = "vendo/commands";
+				this.client.send(message);
+			} 
+
+			var message = new Paho.Message("1");
 			message.destinationName = "vendo/commands";
 			this.client.send(message);
-		} 
 
-		var message = new Paho.Message("1");
-		message.destinationName = "vendo/commands";
-		this.client.send(message);
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }
 
