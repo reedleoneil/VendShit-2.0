@@ -31,7 +31,7 @@ Servo slot4;
  */
 void setup() {
   Serial.begin(9600);
-  attachInterrupt(digitalPinToInterrupt(3), credit_inc, RISING);
+  attachInterrupt(3, credit_inc, RISING);
   slot1.attach(9);
   slot2.attach(10);
   slot3.attach(11);
