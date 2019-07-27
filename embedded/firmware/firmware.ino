@@ -62,7 +62,7 @@ void loop() {
  * Credit Functions
  */
 int credit_ret(){
-  Serial.println("{ \"credit\": " + credit + "}");
+  Serial.println("{ credit: " + String(credit) + " }");
 }
 
 void credit_inc(){
