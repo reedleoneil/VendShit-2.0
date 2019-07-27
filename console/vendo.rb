@@ -11,7 +11,7 @@ client.on_message do |p|
 end
 
 client.connect('localhost', 1883, client.keep_alive, true, true)
-client.subscribe(["vendo/servo", 2])
+client.subscribe(["vendo/commands", 2])
 
 Thread.new {
 	loop do
