@@ -25,15 +25,13 @@ Servo slot1;
 Servo slot2;
 Servo slot3;
 Servo slot4;
-const long interval = 1000;
-unsigned long currentMillis;
 
 /*
  * Setup Function
  */
 void setup() {
   Serial.begin(9600);
-  attachInterrupt(3, credit_inc, RISING);
+  attachInterrupt(digitalPinToInterrupt(3), credit_inc, RISING);
   slot1.attach(9);
   slot2.attach(10);
   slot3.attach(11);
@@ -44,7 +42,6 @@ void setup() {
  * Main Loop
  */
 void loop() {
-  urrentMillis = millis();
   if(Serial.available()){
     char cmd = Serial.read();
     if(cmd == 'q'){
