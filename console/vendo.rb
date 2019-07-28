@@ -28,6 +28,7 @@ Thread.new {
 		puts payload
 		payload = JSON.parse(payload)
 		client.publish("vendo/credit", payload['credit'], false, 1)
+		sleep 0.22
 	end
 }
 
