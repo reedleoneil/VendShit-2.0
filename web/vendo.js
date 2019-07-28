@@ -37,9 +37,9 @@ class Vendo {
 				var message = new Paho.Message("e");
 				message.destinationName = "vendo/commands";
 				this.client.send(message);
-			} 
+			}
 
-			var message = new Paho.Message("1");
+			var message = new Paho.Message(slot.toString());
 			message.destinationName = "vendo/commands";
 			this.client.send(message);
 

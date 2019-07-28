@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>VendShit 2.0</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark justify-content-between">
+      <a class="navbar-brand" href="#">
+        <img src="https://picsum.photos/id/124/200/200" width="30" height="30" class="d-inline-block align-top" alt="">
+        VendShit 2.0
+      </a>
+      <button type="button" class="btn btn-primary" data-toggle="popover" title="Insufficient Credit" data-content="Please insert coins." data-placement="left">
+	Credits <span id="credit" class="badge badge-light">0</span>
+      </button>
+    </nav>
+    <div class="container-fluid mt-5 mb-5">
+      <div class="row">
+	<div class="col-sm">
+	  <div class="card">
+            <img src="https://picsum.photos/id/124/200/200" class="card-img-top">
+	    <div class="card-body">
+	      <h5 class="card-title">Biogesic <span class="badge badge-secondary">₱ 2.00</span></h5>
+	      <h6 class="card-subtitle mb-2 text-muted">Paracetamol</h6>
+	      <button type="button" class="btn btn-primary btn-block" onclick="vend({ slot: 1, price: 2 });">Buy!</button>
+	    </div>
+          </div>
+	</div>
+        <div class="col-sm">
+	  <div class="card">
+            <img src="https://picsum.photos/id/124/200/200" class="card-img-top">
+	    <div class="card-body">
+	      <h5 class="card-title">Advil <span class="badge badge-secondary">₱ 10.00</span></h5>
+	      <h6 class="card-subtitle mb-2 text-muted">Ibuprofen</h6>
+              <button type="button" class="btn btn-primary btn-block" onclick="vend({ slot: 2, price: 10 });">Buy!</button>
+	    </div>
+          </div>
+	</div>
+        <div class="col-sm">
+	  <div class="card">
+            <img src="https://picsum.photos/id/124/200/200" class="card-img-top">
+	    <div class="card-body">
+	      <h5 class="card-title">Neozep Forte <span class="badge badge-secondary">₱ 5.00</span></h5>
+	      <h6 class="card-subtitle mb-2 text-muted">Phenylephrine HCl‎</h6>
+              <button type="button" class="btn btn-primary btn-block" onclick="vend({ slot: 3, price: 5 });">Buy!</button>
+	    </div>
+          </div>
+	</div>
+        <div class="col-sm">
+	  <div class="card">
+            <img src="https://picsum.photos/id/124/200/200" class="card-img-top">
+	    <div class="card-body">
+	      <h5 class="card-title">Bioflue <span class="badge badge-secondary">₱ 7.00</span></h5>
+	      <h6 class="card-subtitle mb-2 text-muted">Chlorphenamine Maleate‎</h6>
+              <button type="button" class="btn btn-primary btn-block" onclick="vend({ slot: 4, price: 7 });">Buy!</button>
+	    </div>
+          </div>
+	</div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Vendo JS -->
+    <script type="text/javascript" src="paho-mqtt.js"></script>
+    <script type="text/javascript" src="vendo.js"></script>
+    <script type="text/javascript">
+	$(function () {
+		$('[data-toggle="popover"]').popover({ trigger: 'manual' });
+	})
+
+	var vendo = new Vendo();
+
+	vendo.onCredit = function (credit) {
+		$("#credit").text(credit);
+	};
+
+	function vend(options) {
+		if (!vendo.vend(options.slot, options.price)) {
+			$('[data-toggle="popover"]').popover('show');
+			setTimeout(function () {
+				$('[data-toggle="popover"]').popover('hide');
+		    	}, 5000);
+		}
+	}
+    </script>
+  </body>
+</html>
